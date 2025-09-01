@@ -35,4 +35,9 @@
 				    ORDER BY b.bnum DESC				
 	</select>
 	
+	<!-- 모든 글 갯수 가져오기 -->
+	<select id="AllBoardCountDao" resultType="int">	
+		SELECT COUNT(*) FROM boardtbl
+	</select>
+	
 </mapper>

@@ -50,11 +50,13 @@ public class BoardController {
 	@RequestMapping(value = "/blist")
 	public String blist(Model model) {
 		
-		System.out.println("blist->boardList");
+		//System.out.println("blist->boardList");
 		
 		BoardDao boardDao = sqlSession.getMapper(BoardDao.class);
 		List<BoardDto> boardDtos = boardDao.boardListDao(); //모든 글 가져오기(조인 테이블)
 		model.addAttribute("boardList", boardDtos);
+		
+		model.addAttribute("boardCount", boardDao.AllBoardCountDao()); //모든 글 갯수 전달하기
 		
 		return "boardList";
 	}
