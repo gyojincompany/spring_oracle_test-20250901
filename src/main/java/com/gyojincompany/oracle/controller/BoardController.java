@@ -1,5 +1,7 @@
 package com.gyojincompany.oracle.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -10,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.gyojincompany.oracle.dao.BoardDao;
+import com.gyojincompany.oracle.dto.BoardDto;
 
 @Controller
 public class BoardController {
@@ -43,5 +46,19 @@ public class BoardController {
 		
 		return "redirect:blist";
 	}
+	
+	@RequestMapping(value = "/blist")
+	public String blist(Model model) {
+		
+		System.out.println("blist->boardList");
+		
+		BoardDao boardDao = sqlSession.getMapper(BoardDao.class);
+		List<BoardDto> boardDtos = boardDao.boardListDao(); //모든 글 가져오기(조인 테이블)
+		model.addAttribute("boardList", boardDtos);
+		
+		return "boardList";
+	}
+	
+	
 
 }
