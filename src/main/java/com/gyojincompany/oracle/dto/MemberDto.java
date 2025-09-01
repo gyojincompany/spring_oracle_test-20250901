@@ -1,5 +1,7 @@
 package com.gyojincompany.oracle.dto;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,5 +17,7 @@ public class MemberDto {
 	private String memberpw;
 	private String memebername;
 	private String memberdate; //가입일
+	
+	//private List<BoardDto> boardDtos; //Member:Board->1:N 관계
 	
 }
