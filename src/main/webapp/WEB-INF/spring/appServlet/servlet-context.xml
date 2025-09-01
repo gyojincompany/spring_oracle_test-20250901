@@ -24,7 +24,7 @@
 	<!-- Oracle DataSource 설정 -->
 	<beans:bean name="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<beans:property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
-		<beans:property name="url" value="jdbc:oracle:thin@localhost:1521:xe" />
+		<beans:property name="url" value="jdbc:oracle:thin:@localhost:1521:xe" />
 		<beans:property name="username" value="system" />
 		<beans:property name="password" value="12345" />
 	</beans:bean>
