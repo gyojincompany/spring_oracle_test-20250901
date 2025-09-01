@@ -1,6 +1,7 @@
 package com.gyojincompany.oracle.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +52,50 @@ public class MemberController {
 			
 			return "memberjoinOk";
 		}
+	}
+	
+	@RequestMapping(value = "/login")
+	public String login(HttpServletRequest request, Model model) {		
+		
+		String error = request.getParameter("error");
+		
+		if(error != null) {
+			model.addAttribute("error", error);
+		}
+		
+		return "login";
+	}
+	
+	@RequestMapping(value = "/loginOk")
+	public String loginOk(HttpServletRequest request, Model model, HttpSession session) {		
+		
+		String mid = request.getParameter("memberid");
+		String mpw = request.getParameter("memberpw");
+		
+		MemberDao dao = sqlSession.getMapper(MemberDao.class);
+		
+		int checkFlag = dao.memberLoginDao(mid, mpw); //로그인 성공->1, 실패->0
+		
+		if(checkFlag == 1) { //로그인하려는 아이디와 비번이 존재->성공
+			session.setAttribute("sessionId", mid); //로그인성공->세션 sessionId값 설정
+			
+			model.addAttribute("msg", "로그인 성공. 회원님 반갑습니다.");
+			model.addAttribute("url", "loginSuccess");
+			
+			return "alert/alert";
+		} else { //로그인 실패		
+			model.addAttribute("msg", "로그인 실패. 아이디 또는 비밀번호가 잘못 되었습니다.");
+			model.addAttribute("url", "login");
+			
+			
+			return "alert/alert";		
+		}
+		
+	}
+	
+	@RequestMapping(value = "/loginSuccess")
+	public String loginSuccess() {
+		return "loginSuccess";
 	}
 	
 	
