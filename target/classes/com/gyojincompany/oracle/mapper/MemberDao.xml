@@ -10,4 +10,8 @@
 			VALUES(member_seq.nextval , #{param1}, #{param2}, #{param3})
 	</insert>
 	
+	<select id="memeberidCheckDao" resultType="int">
+		SELECT COUNT(*) FROM membertbl WHERE memberid = #{param1} 
+		<!-- 아이디가 존재시 1이 반환 -->
+	</select>
 </mapper>    

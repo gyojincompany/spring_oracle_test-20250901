@@ -17,7 +17,13 @@ public class MemberController {
 	private SqlSession sqlSession;
 	
 	@RequestMapping(value = "/join")
-	public String join() {		
+	public String join(HttpServletRequest request, Model model) {		
+		
+		String error = request.getParameter("error");
+		
+		if(error != null) {
+			model.addAttribute("error", error);
+		}
 		
 		return "memberjoin";
 	}
@@ -31,12 +37,20 @@ public class MemberController {
 		
 		MemberDao dao = sqlSession.getMapper(MemberDao.class);
 		
-		int result = dao.memberjoinDao(mid, mpw, mname);
-		System.out.println("가입성공여부 : " + result); //1이면 성공, 0이면 실패
+		int checkFlag = dao.memeberidCheckDao(mid); //아이디가 이미 DB에 존재하는지 확인->존재하면 1, 아니면 0
 		
-		model.addAttribute("mid", mid);
-		
-		return "memberjoinOk";
+		if(checkFlag == 1) { //가입하려는 아이디가 이미 존재->가입 불가
+			model.addAttribute("msg", "이미 가입된 아이디 입니다. 다시 가입해 주세요.");
+			model.addAttribute("url", "join");
+			
+			return "alert/alert";
+		} else {
+			int result = dao.memberjoinDao(mid, mpw, mname);
+			System.out.println("가입성공여부 : " + result); //1이면 성공, 0이면 실패
+			model.addAttribute("mid", mid);
+			
+			return "memberjoinOk";
+		}
 	}
 	
 	
