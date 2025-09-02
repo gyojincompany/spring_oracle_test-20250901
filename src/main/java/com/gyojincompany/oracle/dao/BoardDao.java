@@ -12,5 +12,6 @@ public interface BoardDao {
 	public int boardDeleteDao(String bnum); //게시판 글 삭제
 	public BoardDto contentViewDao(String bnum); //글 번호로 해당 글 레코드 가져오기
 	public int boardModifyDao(String bnum, String btitle, String bcontent); //글 번호로 해당 글 수정하기
+	public void updateHitDao(String bnum); //해당 글의 조회수 1증가
 
 }

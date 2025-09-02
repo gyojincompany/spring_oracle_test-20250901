@@ -64,6 +64,11 @@
 		UPDATE boardtbl SET btitle=#{param2}, bcontent=#{param3} WHERE bnum=#{param1}
 	</update>
 	
+	<!-- 글 번호로 조회 수 증가 -->
+	<update id="updateHitDao">
+		UPDATE boardtbl SET bhit=bhit+1 WHERE bnum=#{param1}
+	</update>
+	
 	
 	
 </mapper>
