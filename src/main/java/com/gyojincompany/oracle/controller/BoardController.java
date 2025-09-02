@@ -158,13 +158,16 @@ public class BoardController {
 		//전체 글수로 만든 총 페이지 수 (글 153->16, 178->18, 12->2)
 		if(endPage > totalPage) {
 			endPage = totalPage;
-		}		
+		}	
+		//실제 모든 글 갯수로 만든 총 페이지수(totalPage)가 endPage 보다 작을 경우
+		//없는 페이지까지 페이지 블럭에 출력되므로 totalPage가 endPage 보다 작을 경우에
+		//totalPage 값으로 endPage 값을 대체
 		
 		model.addAttribute("boardList", boardDtos);
 		model.addAttribute("pageNum", pageNum); //유저가 클릭한 페이지 번호->현재 페이지 번호
 		model.addAttribute("startPage", startPage);
 		model.addAttribute("endPage", endPage);
-		
+		model.addAttribute("totalPage", totalPage);
 		model.addAttribute("boardCount", totalCount); //모든 글 갯수 전달하기
 		
 		return "pagelist";
