@@ -30,7 +30,7 @@
 			<td>${board.memberDto.membername }</td>
 			<td>${board.bhit }</td>
 			<td>				
-				${board.bdate }			
+				<fmt:formatDate value="${board.bdate }" pattern="yyyy-MM-dd HH:mm" />		
 			</td>
 			<td>
 				<input type="button" value="삭제" onclick="javascript:window.location.href='boarddelete?bnum=${board.bnum}'">

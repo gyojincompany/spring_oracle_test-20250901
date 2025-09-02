@@ -75,6 +75,25 @@ public class BoardController {
 		return "boardlist2";
 	}
 	
+	@RequestMapping(value = "/boarddelete")
+	public String boarddelete(HttpServletRequest request, Model model) {
+		
+		String bnum = request.getParameter("bnum"); //삭제할 글의 번호
+		
+		BoardDao boardDao = sqlSession.getMapper(BoardDao.class);
+		int result = boardDao.boardDeleteDao(bnum); //삭제 성공->1, 실패->0
+		
+		if (result == 0) { //삭제 실패
+			model.addAttribute("msg", "글 삭제가 실패 하였습니다. 다시 확인해 주세요.");
+			model.addAttribute("url", "blist");
+		} else {
+			model.addAttribute("msg", "글 삭제가 성공 하였습니다.");
+			model.addAttribute("url", "blist");
+		}
+		
+		return "alert/alert";
+	}
+	
 	
 
 }

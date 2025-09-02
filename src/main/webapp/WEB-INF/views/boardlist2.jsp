@@ -32,7 +32,7 @@
           </td>
           <td>${board.memberDto.membername }</td>
           <td>
-          	<fmt:formatDate value="${board.bdate }" pattern="yyyy-MM-dd" />
+          	<fmt:formatDate value="${board.bdate }" pattern="yyyy-MM-dd HH:mm" />
           </td>
         </tr>
         </c:forEach>

@@ -40,4 +40,9 @@
 		SELECT COUNT(*) FROM boardtbl
 	</select>
 	
+	<!-- 게시판 글 삭제하기 -->
+	<delete id="boardDeleteDao">
+		DELETE FROM boardtbl WHERE bnum=#{param1}
+	</delete>
+	
 </mapper>
