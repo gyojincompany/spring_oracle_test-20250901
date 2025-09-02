@@ -124,11 +124,16 @@
     <div class="pagination">
       <a href="#">&laquo;</a>
       <a href="#">&lsaquo;</a>
-      <a href="pagelist?pageNum=1" class="active">1</a>
-      <a href="pagelist?pageNum=2">2</a>
-      <a href="pagelist?pageNum=3">3</a>
-      <a href="pagelist?pageNum=4">4</a>
-      <a href="pagelist?pageNum=5">5</a>
+      <c:forEach var="i" begin="${startPage }" end="${endPage }">
+      	<c:choose>
+      		<c:when test="${i == pageNum}">
+      			<a href="#" class="active">${i}</a>
+      		</c:when>
+      		<c:otherwise>
+      			<a href="pagelist?pageNum=${i}">${i}</a>
+      		</c:otherwise>      		
+      	</c:choose>	
+      </c:forEach>
       <a href="#">&rsaquo;</a>
       <a href="#">&raquo;</a>
     </div>

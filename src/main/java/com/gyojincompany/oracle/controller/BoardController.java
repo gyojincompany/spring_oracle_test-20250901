@@ -131,6 +131,8 @@ public class BoardController {
 	@RequestMapping(value = "/pagelist")
 	public String pagelist(HttpServletRequest request, Model model) {
 		
+		
+		
 		int pageSize = 10; //게시판 목록에 한 페이지 당 출력될 글 수
 		int pageNum = 1; //유저가 클릭한 페이지 번호->현재 페이지 번호
 		//처음에 게시판 리스트 링크로 들어왔을 경우는 무조건 1페이지로 출력->초기값 1
@@ -146,9 +148,24 @@ public class BoardController {
 		
 		BoardDao boardDao = sqlSession.getMapper(BoardDao.class);
 		List<BoardDto> boardDtos = boardDao.pageBoardListDao(startRow, endRow); //페이징 된 모든 글 가져오기(조인 테이블)
-		model.addAttribute("boardList", boardDtos);
+		int totalCount = boardDao.AllBoardCountDao();
 		
-		model.addAttribute("boardCount", boardDao.AllBoardCountDao()); //모든 글 갯수 전달하기
+		int startPage = (((pageNum - 1)/blockSize) * blockSize) + 1;
+		//1 2 3 4 5 -> 1, 6 7 8 9 10 -> 6, 11 12 13 14 15 -> 11 ...
+		int endPage = startPage + blockSize - 1;
+		//1 2 3 4 5 -> 5, 6 7 8 9 10 -> 10, 11 12 13 14 15 -> 15 ...
+		int totalPage = (int) Math.ceil((double) totalCount / pageSize);  
+		//전체 글수로 만든 총 페이지 수 (글 153->16, 178->18, 12->2)
+		if(endPage > totalPage) {
+			endPage = totalPage;
+		}		
+		
+		model.addAttribute("boardList", boardDtos);
+		model.addAttribute("pageNum", pageNum); //유저가 클릭한 페이지 번호->현재 페이지 번호
+		model.addAttribute("startPage", startPage);
+		model.addAttribute("endPage", endPage);
+		
+		model.addAttribute("boardCount", totalCount); //모든 글 갯수 전달하기
 		
 		return "pagelist";
 	}
