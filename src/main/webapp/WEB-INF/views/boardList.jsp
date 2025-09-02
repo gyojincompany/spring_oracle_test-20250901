@@ -34,7 +34,7 @@
 			<td>				
 				<fmt:formatDate value="${board.bdate }" pattern="yyyy-MM-dd HH:mm" />		
 			</td>
-			<td>
+			<td>			
 				<input type="button" value="삭제" onclick="javascript:window.location.href='boarddelete?bnum=${board.bnum}'">
 			</td>
 		</tr>

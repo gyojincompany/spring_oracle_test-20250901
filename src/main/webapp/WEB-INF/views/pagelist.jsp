@@ -111,7 +111,7 @@
       <tbody>
         <c:forEach items="${boardList}" var="board" varStatus="status">
         <tr>
-          <td>${boardCount - status.index }</td>
+          <td>${boardCount - (board.rnum -1) }</td>
           <td><a href="contentview?bnum=${board.bnum}">${board.btitle }</a></td>
           <td>${board.memberDto.membername }</td>
           <td><fmt:formatDate value="${board.bdate }" pattern="yyyy-MM-dd HH:mm" /></td>
@@ -124,11 +124,11 @@
     <div class="pagination">
       <a href="#">&laquo;</a>
       <a href="#">&lsaquo;</a>
-      <a href="#" class="active">1</a>
-      <a href="#">2</a>
-      <a href="#">3</a>
-      <a href="#">4</a>
-      <a href="#">5</a>
+      <a href="pagelist?pageNum=1" class="active">1</a>
+      <a href="pagelist?pageNum=2">2</a>
+      <a href="pagelist?pageNum=3">3</a>
+      <a href="pagelist?pageNum=4">4</a>
+      <a href="pagelist?pageNum=5">5</a>
       <a href="#">&rsaquo;</a>
       <a href="#">&raquo;</a>
     </div>
