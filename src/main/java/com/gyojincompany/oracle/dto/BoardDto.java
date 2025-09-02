@@ -1,7 +1,7 @@
 package com.gyojincompany.oracle.dto;
 
-import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,4 +24,7 @@ public class BoardDto {
 	
 	//BoarDto : MemberDto -> 1:1 관계
 	private MemberDto memberDto;
+	
+	//BoarDto : CommentDto -> 1:N 관계
+	private List<CommentDto> commentDtos;
 }

@@ -108,6 +108,8 @@ public class BoardController {
 		return "boardContent";
 	}
 	
+	
+	
 	@RequestMapping(value = "/boardmodify")
 	public String boardmodify(HttpServletRequest request, Model model) {
 		
@@ -171,6 +173,48 @@ public class BoardController {
 		model.addAttribute("boardCount", totalCount); //모든 글 갯수 전달하기
 		
 		return "pagelist";
+	}
+	
+	@RequestMapping(value = "/test")
+	public String test() {
+		return "test";
+	}
+	
+	@RequestMapping(value = "/maptest")
+	public String maptest() {
+		return "maptest";
+	}
+	
+	@RequestMapping(value = "/kakaomaptest")
+	public String kakaomaptest() {
+		return "kakaomaptest";
+	}
+	
+	@RequestMapping(value = "/commentwrite")
+	public String commentwrite(HttpServletRequest request, Model model) {
+		
+		String bnum = request.getParameter("bnum");
+		String ccontent = request.getParameter("ccontent");
+		String cwriter = request.getParameter("cwriter");
+		
+		BoardDao boardDao = sqlSession.getMapper(BoardDao.class);
+		boardDao.commentWriteDao(bnum, ccontent, cwriter);
+		
+		return "redirect:contentview2?bnum=" + bnum;
+	}
+	
+	@RequestMapping(value = "/contentview2")
+	public String contentview2(HttpServletRequest request, Model model) {
+		
+		String bnum = request.getParameter("bnum"); //유저가 클릭한 글의 번호
+		BoardDao boardDao = sqlSession.getMapper(BoardDao.class);
+		boardDao.updateHitDao(bnum); //조회수 증가함수 호출
+
+		BoardDto boardDto = boardDao.contentCommentViewDao(bnum); //댓글 포함한 조인 sql문 호출
+		
+		model.addAttribute("post", boardDto);
+		
+		return "contentview";
 	}
 
 }

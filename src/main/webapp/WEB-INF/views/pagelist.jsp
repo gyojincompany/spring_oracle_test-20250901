@@ -112,7 +112,7 @@
         <c:forEach items="${boardList}" var="board" varStatus="status">
         <tr>
           <td>${boardCount - (board.rnum -1) }</td>
-          <td><a href="contentview?bnum=${board.bnum}">${board.btitle }</a></td>
+          <td><a href="contentview2?bnum=${board.bnum}">${board.btitle }</a></td>
           <td>${board.memberDto.membername }</td>
           <td><fmt:formatDate value="${board.bdate }" pattern="yyyy-MM-dd HH:mm" /></td>
         </tr>

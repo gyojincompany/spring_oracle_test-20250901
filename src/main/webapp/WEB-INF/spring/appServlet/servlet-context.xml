@@ -38,7 +38,6 @@
 		<beans:constructor-arg index="0" ref="sqlSessionFactory" />
 	</beans:bean>
 	
-	
 	<context:component-scan base-package="com.gyojincompany.oracle" />
 	
 </beans:beans>

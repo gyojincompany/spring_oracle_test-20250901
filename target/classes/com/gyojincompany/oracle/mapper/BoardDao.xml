@@ -9,7 +9,7 @@
 			VALUES(board_seq.nextval, #{param1}, #{param2}, #{param3}, 0)
 	</insert>
 	
-	<!-- board:member 1:1관계 매핑 -->
+	<!-- board:member 1:1 관계 매핑 board:comment 1:N 관계 매핑 -->
 	<resultMap type="com.gyojincompany.oracle.dto.BoardDto" id="boardWithMember">
 		<id property="bnum" column="bnum" /> <!-- boardtbl 테이블의 기본키 셋팅 -->
 		<result property="btitle"  column="btitle" /> <!-- boardtbl 테이블의 나머지 필드 셋팅 -->
@@ -19,6 +19,7 @@
 		<result property="bdate"  column="bdate" />
 		<result property="rnum"  column="rnum" />
 		
+		<!-- boardDto:memberDto 1:1 관계 매핑 -->
 		<association property="memberDto" javaType="com.gyojincompany.oracle.dto.MemberDto">
 			<id property="memberid" column="memberid" />
 			<result property="membernum" column="membernum" />
@@ -26,6 +27,15 @@
 			<result property="membername" column="membername" />
 			<result property="memberdate" column="memberdate" />
 		</association>
+		
+		<!-- boardDto:commentDto 1:N 관계 매핑 -->
+		<collection property="commentDtos" ofType="com.gyojincompany.oracle.dto.CommentDto">
+			<id property="cnum" column="cnum" />
+			<result property="bnum" column="bnum" />
+			<result property="ccontent" column="ccontent" />
+			<result property="cwriter" column="cwriter" />
+			<result property="cdate" column="cdate" />
+		</collection>
 	</resultMap>
 	
 	<!-- 모든 글 가져오기(멤버 정보 조인) -->
@@ -84,5 +94,18 @@
 		]]>                                    		
 	</select>
 	
+	<!-- 댓글 관련 -->
+	<insert id="commentWriteDao">
+		INSERT INTO commenttbl(cnum, bnum, ccontent, cwriter) VALUES(comment_seq.nextval, #{param1},#{param2},#{param3})
+	</insert>
+	
+	<!-- 글 번호로 게시판 글 레코드 가져오기 : 글쓴이 이름으로 출력 -->	
+	<select id="contentCommentViewDao" resultMap="boardWithMember">
+		SELECT b.bnum, b.btitle, b.bcontent, b.bwriter, m.membername, b.bhit, b.bdate, c.cwriter, c.ccontent, c.cdate
+			FROM boardtbl b
+				INNER JOIN membertbl m ON b.bwriter = m.memberid	
+					LEFT JOIN commenttbl c ON b.bnum = c.bnum
+				   		WHERE b.bnum = #{param1}		
+	</select>
 	
 </mapper>

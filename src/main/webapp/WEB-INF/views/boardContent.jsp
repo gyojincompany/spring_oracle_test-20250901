@@ -11,7 +11,7 @@
 	<h2>글 내용 보기 및 수정</h2>
 	<hr>
 	<form action="boardmodify">
-		제목 : <input type="text" name="btitle" value="${boardDto.btitle }"><br><br>
+		제목 : <input type="text" name="btitle" value="${boardDto.btitle }" size="50"><br><br>
 		내용 : <textarea rows="10" cols="45" name="bcontent">${boardDto.bcontent }</textarea><br><br>
 		글쓴이 : <input type="text" name="membername" value="${boardDto.memberDto.membername }" readonly><br><br>
 		조회수 : ${boardDto.bhit}<br><br>
