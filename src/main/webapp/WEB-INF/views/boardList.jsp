@@ -25,7 +25,9 @@
 		<c:forEach items="${boardList }" var="board" varStatus="status">
 		<tr>
 			<td>${boardCount - status.index }</td>
-			<td>${board.btitle }</td>
+			<td>
+				<a href="contentview?bnum=${board.bnum}">${board.btitle }</a>
+			</td>
 			<td>${board.bwriter }</td>
 			<td>${board.memberDto.membername }</td>
 			<td>${board.bhit }</td>

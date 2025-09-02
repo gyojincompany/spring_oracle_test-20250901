@@ -45,4 +45,25 @@
 		DELETE FROM boardtbl WHERE bnum=#{param1}
 	</delete>
 	
+	<!-- 글 번호로 게시판 글 레코드 가져오기 : 글쓴이 아이디로 출력
+	<select id="contentViewDao" resultType="com.gyojincompany.oracle.dto.BoardDto">
+		SELECT * FROM boardtbl WHERE bnum=#{param1}
+	</select>
+	-->
+	
+	<!-- 글 번호로 게시판 글 레코드 가져오기 : 글쓴이 이름으로 출력 -->	
+	<select id="contentViewDao" resultMap="boardWithMember">
+		SELECT b.bnum, b.btitle, b.bcontent, b.bwriter, m.membername, b.bhit, b.bdate
+			FROM boardtbl b
+				INNER JOIN membertbl m ON b.bwriter = m.memberid	
+				   WHERE b.bnum = #{param1}				
+	</select>
+	
+	<!-- 글 번호로 해당 글 수정하기 -->
+	<update id="boardModifyDao">
+		UPDATE boardtbl SET btitle=#{param2}, bcontent=#{param3} WHERE bnum=#{param1}
+	</update>
+	
+	
+	
 </mapper>

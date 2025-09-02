@@ -94,6 +94,37 @@ public class BoardController {
 		return "alert/alert";
 	}
 	
+	@RequestMapping(value = "/contentview")
+	public String contentview(HttpServletRequest request, Model model) {
+		
+		String bnum = request.getParameter("bnum"); //유저가 클릭한 글의 번호
+		BoardDao boardDao = sqlSession.getMapper(BoardDao.class);
+		
+		BoardDto boardDto = boardDao.contentViewDao(bnum);
+		
+		model.addAttribute("boardDto", boardDto);
+		
+		return "boardContent";
+	}
 	
+	@RequestMapping(value = "/boardmodify")
+	public String boardmodify(HttpServletRequest request, Model model) {
+		
+		String bnum = request.getParameter("bnum");
+		String btitle = request.getParameter("btitle");
+		String bcontent = request.getParameter("bcontent");
+		
+		BoardDao boardDao = sqlSession.getMapper(BoardDao.class);
+		int result = boardDao.boardModifyDao(bnum, btitle, bcontent);
+		
+		if(result == 1) { //수정 성공->1, 실패->0
+			model.addAttribute("msg", "글 수정이 성공 하였습니다.");
+			model.addAttribute("url", "blist");			
+		} else {
+			model.addAttribute("msg", "글 수정이 실패 하였습니다.");
+			model.addAttribute("url", "blist");			
+		}
+		return "alert/alert";
+	}
 
 }
