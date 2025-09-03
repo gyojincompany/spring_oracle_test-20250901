@@ -14,6 +14,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class BoardDto { 
 	
+	private int commentcount; //댓글 갯수
 	private int rnum; //rownum 값 필드
 	private int bnum; //글번호(기본키)-자동증가
 	private String btitle; //글 제목

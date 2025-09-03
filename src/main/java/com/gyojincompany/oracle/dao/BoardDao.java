@@ -19,5 +19,6 @@ public interface BoardDao {
 	//댓글 작성
 	public void commentWriteDao(String bnum, String ccontent, String cwriter);
 	public BoardDto contentCommentViewDao(String bnum); //댓글을 포함한 게시글 내용 가져오기
+	
 
 }
